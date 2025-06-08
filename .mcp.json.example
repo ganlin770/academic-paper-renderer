@@ -1,0 +1,51 @@
+{
+  "mcpServers": {
+    "supabase": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase/mcp-server-supabase@latest",
+        "--access-token",
+        "YOUR_SUPABASE_ACCESS_TOKEN"
+      ]
+    },
+    "exa": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "exa-mcp-server",
+        "--tools=web_search_exa,research_paper_search,company_research,crawling,competitor_finder,linkedin_search,wikipedia_search_exa,github_search"
+      ],
+      "env": {
+        "EXA_API_KEY": "YOUR_EXA_API_KEY",
+        "MCP_TIMEOUT": "600000",
+        "MCP_TOOL_TIMEOUT": "600000"
+      }
+    },
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "YOUR_GITHUB_TOKEN",
+        "MCP_TIMEOUT": "600000",
+        "MCP_TOOL_TIMEOUT": "600000"
+      }
+    },
+    "mem0": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@pinkpixel/mem0-mcp"
+      ],
+      "env": {
+        "MEM0_API_KEY": "YOUR_MEM0_API_KEY",
+        "DEFAULT_USER_ID": "claude_user",
+        "MCP_TIMEOUT": "600000",
+        "MCP_TOOL_TIMEOUT": "600000"
+      }
+    }
+  }
+}
