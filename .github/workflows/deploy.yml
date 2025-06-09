@@ -1,0 +1,40 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build project
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://usyeheyrggjnpsaaccsx.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVzeWVoZXlyZ2dqbnBzYWFjY3N4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkyOTE5NDMsImV4cCI6MjA2NDg2Nzk0M30.6tBgGrzz1nmmunapxtqdoYWpcs0JEUqutDVOj2Qytm0
+          SUPABASE_SERVICE_ROLE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVzeWVoZXlyZ2dqbnBzYWFjY3N4Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0OTI5MTk0MywiZXhwIjoyMDY0ODY3OTQzfQ.VfqK9NoYOtUvKjTcrQ58XXu7lnJaNgMhxvkYzTOp2Tk
+          NEXT_PUBLIC_APP_URL: https://academic-paper-renderer-v2.vercel.app
+          
+      - name: Deploy to Vercel
+        run: |
+          npm i -g vercel@latest
+          vercel --token 5UhjRNyzvyczvjHFqvd77nQ3 --confirm --prod --scope ganlin770
+        env:
+          VERCEL_TOKEN: 5UhjRNyzvyczvjHFqvd77nQ3
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
